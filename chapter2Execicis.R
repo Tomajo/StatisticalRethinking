@@ -68,8 +68,7 @@ plot( p_grid , posterior , type="b" ,
 
 #2M3
 #imagine 0.5 of chance earth with p=0.7, and a 0.5 chance of mars with 0
-# define grid
-p_grid <- seq( from=0 , to=1 , length.out=2 )
+
 # define prior
 prior <- c(0.5,0.5)
 
@@ -78,6 +77,70 @@ likelihood<-c(0.3,1)
 unstandarized.posterior<-prior*likelihood
 posterior<- unstandarized.posterior/sum(unstandarized.posterior)
 
-#2M3
-#
-numerador<- (0.5*0.5)/((0.7*0.5 + 1*0.5))
+#2M4
+
+
+# define prior
+prior <- c(1/3,1/3,1/3)
+
+
+likelihood<-c(1,0.5,0)
+unstandarized.posterior<-prior*likelihood
+posterior<- unstandarized.posterior/sum(unstandarized.posterior)
+
+#2M5
+
+# define prior
+prior <- c(1/4,1/4,1/4)
+
+
+likelihood<-c(1,0.5,0,1)
+unstandarized.posterior<-prior*likelihood
+posterior<- unstandarized.posterior/sum(unstandarized.posterior)
+
+#2M6 
+
+#TODO
+
+#counting method
+#prior = possibilities
+prior<-c(2,1,0)
+
+#probabilities
+likelihood<-c(1,2,3)
+unstandarized.posterior<-prior*likelihood
+posterior<- unstandarized.posterior/sum(unstandarized.posterior)
+
+#2M7
+prior <- c(1,1,1,1,1,1)
+
+
+likelihood<-c(2,0,4,0,2,0)
+unstandarized.posterior<-prior*likelihood
+posterior<- unstandarized.posterior/sum(unstandarized.posterior)
+posterior[1]+posterior[3]
+
+
+#2H1
+
+prior <- c(1, 1)
+
+likelihood<- c(0.1,0.2)
+
+unstandarized.posterior<-prior*likelihood
+posterior<- unstandarized.posterior/sum(unstandarized.posterior)
+
+
+#2H2
+
+posterior[2]
+
+#2H3
+
+prior <- c(1,1)
+
+likelihood<- c(0.1*0.9,0.2*0.8)
+
+unstandarized.posterior<-prior*likelihood
+posterior<- unstandarized.posterior/sum(unstandarized.posterior)
+posterior[1]
