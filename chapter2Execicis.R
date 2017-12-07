@@ -141,6 +141,38 @@ prior <- c(1,1)
 
 likelihood<- c(0.1*0.9,0.2*0.8)
 
+unstandarized.posterior.birth<-prior*likelihood
+posterior.birth<- unstandarized.posterior.birth/sum(unstandarized.posterior.birth)
+posterior.birth[1]
+
+
+
+#2H4.1
+
+prior <- c(1,1)
+
+likelihood<- c(0.8,0.35)
+
+unstandarized.posterior.test<-prior*likelihood
+posterior.test<- unstandarized.posterior.test/sum(unstandarized.posterior.test)
+posterior.test[1]
+
+
+#2H4.2
+
+ #Ho podem fer de un pas.. pero crec que en aquest cas es millor composar ...
+prior <- c(1,1)
+
+likelihood<- c(0.1*0.9*0.8,0.2*0.8*0.35)
+
 unstandarized.posterior<-prior*likelihood
 posterior<- unstandarized.posterior/sum(unstandarized.posterior)
 posterior[1]
+
+
+#calcul compost
+
+unstandardized.posterior<-posterior.birth*posterior.test
+
+posterior<-unstandardized.posterior/sum(unstandardized.posterior)
+
