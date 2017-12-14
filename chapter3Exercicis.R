@@ -42,7 +42,7 @@ likelihood <- dbinom( 8 , size=15 , prob=p_grid )
 posterior <- likelihood * prior
 posterior <- posterior / sum(posterior)
 samples <- sample( p_grid , size=1e4 , replace=TRUE , prob=posterior )
-
+dens(samples)
 
 #3M2
 library(rethinking)
@@ -75,7 +75,9 @@ mean(tosses==6)
     posterior <- likelihood * prior
     posterior <- posterior / sum(posterior)
     samples <- sample( p_grid , size=1e4 , replace=TRUE , prob=posterior )
-    
+    dens(samples)
+    # plot(posterior)
+ 
     
     #3M2
     library(rethinking)
@@ -91,7 +93,7 @@ mean(tosses==6)
     #3M3
     
     
-    tosses<-rbinom(n = 1e4,prob = 0.842,size = 15)
+    tosses<-rbinom(n = 1e4,prob = samples,size = 15)
     eigth<-sum(tosses==8)/length(tosses)
     simplehist(tosses)
     mean(tosses==8)
