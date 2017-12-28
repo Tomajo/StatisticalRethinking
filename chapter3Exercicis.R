@@ -76,7 +76,7 @@ mean(tosses==6)
     posterior <- posterior / sum(posterior)
     samples <- sample( p_grid , size=1e4 , replace=TRUE , prob=posterior )
     dens(samples)
-    # plot(posterior)
+    plot(posterior)
  
     
     #3M2
