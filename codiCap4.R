@@ -51,14 +51,18 @@ dens( prior_h )
 ## R code 4.14
 mu.list <- seq( from=140, to=160 , length.out=200 )
 sigma.list <- seq( from=4 , to=9 , length.out=200 )
+#faig totes les convinacions entre  mu.list i sigma.list
 post <- expand.grid( mu=mu.list , sigma=sigma.list )
+#calculo el Likelihood per cada alçada (tenint en compte totes les convinacions de mu i sigma i sumo)
 post$LL <- sapply( 1:nrow(post) , function(i) sum( dnorm(
     d2$height ,
     mean=post$mu[i] ,
     sd=post$sigma[i] ,
     log=TRUE ) ) )
+#composo Likelihood priori de alçada i priori de sigma (sumo perque treballo amb logaritmes)
 post$prod <- post$LL + dnorm( post$mu , 178 , 20 , TRUE ) +
     dunif( post$sigma , 0 , 50 , TRUE )
+#calculo la probabilitat. Veure nota 67 del llibre. No acabo de entendre el punt. Cal revisa-ho.
 post$prob <- exp( post$prod - max(post$prod) )
 
 ## R code 4.15
@@ -294,8 +298,10 @@ str(mu)
 plot( height ~ weight , d2 , type="n" )
 
 # loop over samples and plot each mu value
-for ( i in 1:100 )
+for ( i in 1:100 ){
     points( weight.seq , mu[i,] , pch=16 , col=col.alpha(rangi2,0.1) )
+}
+    
 
 ## R code 4.56
 # summarize the distribution of mu
