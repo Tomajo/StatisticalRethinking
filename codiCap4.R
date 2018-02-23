@@ -257,7 +257,7 @@ mN <- map(
 
 ## R code 4.49
 # extract 20 samples from the posterior
-post <- extract.samples( mN , n=20 )
+post <- extract.samples( mN , n=150 )
 
 # display raw data and sample size
 plot( dN$weight , dN$height ,
@@ -266,7 +266,7 @@ plot( dN$weight , dN$height ,
 mtext(concat("N = ",N))
 
 # plot the lines, with transparency
-for ( i in 1:20 )
+for ( i in 1:150 )
     abline( a=post$a[i] , b=post$b[i] , col=col.alpha("black",0.3) )
 
 ## R code 4.50
@@ -298,9 +298,7 @@ str(mu)
 plot( height ~ weight , d2 , type="n" )
 
 # loop over samples and plot each mu value
-for ( i in 1:100 ){
-    points( weight.seq , mu[i,] , pch=16 , col=col.alpha(rangi2,0.1) )
-}
+for ( i in 1:100 ) points( weight.seq , mu[i,] , pch=16 , col=col.alpha(black,0.1) )
     
 
 ## R code 4.56
