@@ -108,6 +108,7 @@ alt.simulades.mean <- apply(X = alt.simulades, MARGIN = 2, FUN = mean)
 alt.simulades.PI <- apply(X = alt.simulades, MARGIN = 2, FUN = PI, prob = .89)
 alt.simulades.HPDI <- apply(X = alt.simulades, MARGIN = 2, FUN = HPDI, prob = .89)
 
+dens(alt.simulades[,1:5],show.HPDI = TRUE)
 
 #############################
 #4H2
@@ -142,6 +143,44 @@ precis( m4.H2 , corr=TRUE )
 plot(height~weight, d_18)
 abline(a=coef(m4.H2)['a'],b=coef(m4.H2)['b'])
 
+#b) dibuixem els resultats
+#per pintar els resultats del model, fem un decalatge de valors de pesos, 
+#i simulem resultats possibles de les alçades que podrien sortir, després pintem
+d$weight.centered<-(d$weight-mean(d$weight))/sd(d$weight)
+
+weight.centered.seq<-(seq( from=-4.252 , to=62.99 , length.out=30 )-mean(d$weight))/sd(d$weight)
+
+start <- list(
+    mu=mean(d$height),
+    sigma=sd(d$height)
+)
+
+
+m4.H1 <- map(
+    alist(
+        height ~ dnorm( mu , sigma ) ,
+        mu <- a + b*weight.centered ,
+        a ~ dnorm( 178 , 40 ) ,
+        b ~ dnorm( 0 , 10 ) ,
+        sigma ~ dunif( 0 , 50 )
+    ) ,
+    data=d )
+precis( m4.H1 , corr=TRUE )
+
+#Ara que tinc el model fet, simulo les alçades per aquestes entrades de pes que també centro,
+
+alt.simulades.b<-sim(m4.H1,data=list(weight.centered=weight.centered.seq,n=10000))
+
+#Ara que tinc la simulacio (la sortida te 5 columnes 1  per cada entrada de alçada a simular)
+#faig la mitja i el OI i HPDI per cada columna,,,
+alt.simulades.b.mean <- apply(X = alt.simulades.b, MARGIN = 2, FUN = mean)
+alt.simulades.b.PI <- apply(X = alt.simulades.b, MARGIN = 2, FUN = PI, prob = .89)
+alt.simulades.b.HPDI <- apply(X = alt.simulades.b, MARGIN = 2, FUN = HPDI, prob = .89)
+
+plot(height~weight.centered,data=d, col = col.alpha(rangi2, .5))
+lines(x = weight.centered.seq, y = alt.simulades.b.mean)
+shade(object = alt.simulades.b.mean, lim = weight.centered.seq)
+shade(object = alt.simulades.b.HPDI, lim = weight.centered.seq)
 
 #per millorar el model fem 2on grau
 
@@ -162,7 +201,7 @@ m4.H2_2 <- map(
     ) ,
     data=d_18 )
 precis( m4.H2_2 , corr=TRUE )
-#per cada 10 kilos augmentem 27,1 cm
+
 
 
 #4.H3
